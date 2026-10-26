@@ -1,0 +1,3 @@
+import {FilesetResolver,HandLandmarker} from '@mediapipe/tasks-vision';
+const MODEL='https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task';
+export async function createTracker(onProgress=()=>{}){const vision=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');onProgress('Loading hand tracking model…');try{return await HandLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:MODEL,delegate:'GPU'},runningMode:'VIDEO',numHands:2})}catch(e){console.warn('GPU hand tracking unavailable; retrying on CPU',e);return HandLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:MODEL,delegate:'CPU'},runningMode:'VIDEO',numHands:2})}}

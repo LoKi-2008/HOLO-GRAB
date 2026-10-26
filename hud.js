@@ -1,0 +1,1 @@
+export function updateHud(el,{fps,hands,scale,speed,states}){el.innerHTML=`FPS&nbsp; ${fps.toFixed(0)}<br>HANDS&nbsp; ${hands}<br>${states.map(s=>`${s.id.toUpperCase()}&nbsp; ${s.grab?'GRAB':s.pinch?'PINCH':'IDLE'}`).join('<br>')||'GESTURE&nbsp; IDLE'}<br>SCALE&nbsp; ${scale.toFixed(2)}×<br>SPEED&nbsp; ${speed.toFixed(2)}`}

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HOLO GRAB</title><link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/","@mediapipe/tasks-vision":"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm"}}
+  </script>
+</head>
+<body>
+  <video id="camera" autoplay playsinline muted></video><canvas id="scene"></canvas><canvas id="overlay"></canvas><div id="face-preview"><video id="face-camera" autoplay playsinline muted></video><span>CAM / SELF VIEW</span></div>
+  <nav id="model-picker" aria-label="Select hologram model"><div class="picker-title">SELECT A MODEL <span>CLICK OR PINCH A TILE</span></div><div class="model-grid"></div><div class="watermark">MADE BY SHLOK JADHAV</div><button id="voice-toggle" type="button" aria-pressed="true">VOICE: ON</button></nav>
+  <section id="hud"><div class="brand">HOLO GRAB <span>/// INTERACTION SYSTEM</span></div><div id="stats"></div><div class="keys">M SHAPE · H HANDS · D DEBUG</div></section>
+  <div id="hint">Pinch and move up/down · Swipe left/right to turn upright · Two hands to zoom and position</div>
+  <section id="startup"><div class="start-card"><div class="eyebrow">SPATIAL INTERFACE / 01</div><h1>HOLO<br>GRAB<span>.</span></h1><p id="status">Ready to initialize camera and hand tracking.</p><button id="start">START CAMERA</button><button id="retry" hidden>RETRY</button><small>Camera access is required. Your video stays in this browser.</small></div></section>
+  <script type="module" src="main.js"></script>
+</body></html>

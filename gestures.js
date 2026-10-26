@@ -1,0 +1,5 @@
+import {LandmarkSmoother} from './filters.js';
+export class GestureTracker{
+ constructor(){this.hands=new Map()}
+ update(result,t){const seen=new Set(),out=[];for(let i=0;i<(result.landmarks||[]).length;i++){const label=result.handednesses?.[i]?.[0]?.categoryName||`hand${i}`;seen.add(label);let state=this.hands.get(label);if(!state){state={smooth:new LandmarkSmoother(),pinch:false,lastSeen:t};this.hands.set(label,state)}state.lastSeen=t;const raw=result.landmarks[i],points=state.smooth.apply(raw,t);const a=points[4],b=points[8],w=points[0],m=points[9],size=Math.hypot(w.x-m.x,w.y-m.y)||.001,ratio=Math.hypot(a.x-b.x,a.y-b.y)/size;const was=state.pinch;state.pinch=was?ratio<=.40:ratio<.28;out.push({id:label,points,raw,pinch:state.pinch,started:state.pinch&&!was,ended:!state.pinch&&was,ratio,pinchPoint:{x:(a.x+b.x)/2,y:(a.y+b.y)/2},thumb:a,index:b,roll:Math.atan2(m.y-w.y,m.x-w.x)})}for(const [id,s] of this.hands)if(t-s.lastSeen>300){if(s.pinch)out.push({id,pinch:false,ended:true,expired:true});this.hands.delete(id)}return out}
+}
